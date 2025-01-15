@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <h1>안녕하세요. 홈페이지입니다.</h1>
+<h1>안녕하세요. 홈페이지입니다.</h1>
 <div class="main-container" id="mainContainer">
     <p>데이터를 불러오는 중...</p>
 </div>
@@ -29,26 +29,27 @@
         url:'/api/users',
         method:'get',
         success:
-                function (data) {
-                    if(data.length > 0) { //DB에서 컨트롤러로 전달받은 데이터가 1개 이상이라면
-                        $.each(data,
-                                function (index, user) {
-                                    const userInfo = `
+            function (data) {
+                let userInfo;
+                if(data.length > 0) { //DB에서 컨트롤러로 전달받은 데이터가 1개 이상이라면
+                    $.each(data,
+                        function (index, user) {
+                            userInfo += `
                                                             <p><a href="/detail/${user.id}"> ID : </a>${user.id}</p>
                                                             <p><strong> Nickname : </strong>${user.nickname}</p>
                                                             <p><strong> Name : </strong>${user.username}</p>
                                                             <p><strong> Email : </strong>${user.email}</p>
                                                             `;
-                                    $("#mainContainer").html(userInfo);
-                                 }
-                               )
-                        } else {        //DB에서 컨트롤러로 전달받은 데이터가 하나도 없으면
-                        $("#mainContainer").html("<p>정보가 조회되지 않습니다.</p>");
-                    }
-                },
+                        }
+                    )
+                    $("#mainContainer").html(userInfo);
+                } else {        //DB에서 컨트롤러로 전달받은 데이터가 하나도 없으면
+                    $("#mainContainer").html("<p>정보가 조회되지 않습니다.</p>");
+                }
+            },
         error :
             function (){
-                    alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.");
+                alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.");
             }
     })
 
@@ -56,22 +57,22 @@
         url: '/api/data',
         method: "get",
         success:
-                function (data){
-                    $("#mainContainer").append("<p>"+ data.msg +"</p>");
-                    $("#mainContainer").append("<p>"+ data.status +"</p>");
-                 }
+            function (data){
+                $("#mainContainer").append("<p>"+ data.msg +"</p>");
+                $("#mainContainer").append("<p>"+ data.status +"</p>");
+            }
     })
     $.ajax({
         url:'/api/hello',
         method:"GET",
         success:
-                function (data){
-                    $("#mainContainer").append("<p> "+ data +"</p>");
-                },
+            function (data){
+                $("#mainContainer").append("<p> "+ data +"</p>");
+            },
         error:
-                function (){
-                    $("#mainContainer").html("<p>Controller에서 데이터 가져오지 못했습니다.</p>")
-                }
+            function (){
+                $("#mainContainer").html("<p>Controller에서 데이터 가져오지 못했습니다.</p>")
+            }
 
     })
 </script>
