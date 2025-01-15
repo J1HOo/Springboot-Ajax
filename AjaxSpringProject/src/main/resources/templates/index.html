@@ -34,16 +34,16 @@
                         $.each(data,
                                 function (index, user) {
                                     const userInfo = `
-                                                            <p><a href="${}"> ID : </a>${user.id}</p>
+                                                            <p><a href="/detail/${user.id}"> ID : </a>${user.id}</p>
                                                             <p><strong> Nickname : </strong>${user.nickname}</p>
                                                             <p><strong> Name : </strong>${user.username}</p>
                                                             <p><strong> Email : </strong>${user.email}</p>
                                                             `;
-                                    $("#mainContainer").append(userInfo);
+                                    $("#mainContainer").html(userInfo);
                                  }
                                )
                         } else {        //DB에서 컨트롤러로 전달받은 데이터가 하나도 없으면
-                        $("#mainContainer").append("<p>정보가 조회되지 않습니다.</p>");
+                        $("#mainContainer").html("<p>정보가 조회되지 않습니다.</p>");
                     }
                 },
         error :

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유저 상세 조회</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>사용자 정보</h1>
+<div id="user-detail">
+    <p>데이터를 불러오는 중...</p>
+</div>
+</body>
+<script>
+    $.ajax({
+        url: `/api/users/${id}`,
+        method: 'get',
+        success:
+            function (data) {
+                if (data.length > 0) {
+                    $.each(data,
+                        function (index, user) {
+                            const userInfo = `
+                            <p><a href="/detail/${user.id}"> ID : </a>${user.id}</p>
+                            <p><strong> Nickname : </strong>${user.nickname}</p>
+                            <p><strong> Name : </strong>${user.username}</p>
+                            <p><strong> Email : </strong>${user.email}</p>
+                            `;
+                            $("#user-detail").append(userInfo);
+                        }
+                    )
+                } else {
+                    $("#user-detail").append("<p>정보가 조회되지 않습니다.</p>");
+                }
+            },
+    })
+</script>
+</html>
