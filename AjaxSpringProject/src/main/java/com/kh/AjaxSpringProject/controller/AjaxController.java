@@ -1,7 +1,9 @@
 package com.kh.AjaxSpringProject.controller;
 
 
+import com.kh.AjaxSpringProject.dto.Cafe;
 import com.kh.AjaxSpringProject.dto.User;
+import com.kh.AjaxSpringProject.service.CafeService;
 import com.kh.AjaxSpringProject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +63,15 @@ public class AjaxController {
         map.put("msg","hello");
         map.put("status","200");
         return map;
+    }
+
+    @Autowired
+    private CafeService cafeService;
+
+    @GetMapping("/api/cafes")
+    public List<Cafe> getAllCafes(){
+        List<Cafe> cafes = cafeService.getAllCafes();
+        log.info(cafes.toString());
+        return cafes;
     }
 }

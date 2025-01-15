@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>KHT 카페 입니다.</h1>
+<div class="main-container" id="mainContainer">
+  <p>메뉴를 가져오는 중...</p>
+</div>
+</body>
+
+<script>
+  $.ajax({
+    url:'/api/cafes',
+    method:'get',
+    success:
+            function (data) {
+              let cafeInfo;
+              if(data.length > 0) { //DB에서 컨트롤러로 전달받은 데이터가 1개 이상이라면
+                $.each(data,
+                        function (index, cafe) {
+                          cafeInfo += `
+                                                            <p><a href="/detail/${cafe.id}"> ID : </a>${cafe.id}</p>
+                                                            <p><strong> Name : </strong>${cafe.name}</p>
+                                                            <p><strong> Address : </strong>${cafe.address}</p>
+                                                            <p><strong> PhoneNumber : </strong>${cafe.phoneNumber}</p>
+                                                            <p><strong> OpeningTime : </strong>${cafe.openingTime}</p>
+                                                            <p><strong> closingTime : </strong>${cafe.closingTime}</p>
+                                                            <p><strong> description : </strong>${cafe.description}</p>
+                                                            `;
+                        }
+                )
+                $("#mainContainer").html(cafeInfo);
+              } else {        //DB에서 컨트롤러로 전달받은 데이터가 하나도 없으면
+                $("#mainContainer").html("<p>정보가 조회되지 않습니다.</p>");
+              }
+            },
+    error :
+            function (){
+              alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.");
+            }
+  })
+</script>
+</html>
