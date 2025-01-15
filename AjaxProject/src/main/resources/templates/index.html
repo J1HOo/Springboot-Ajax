@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈페이지</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+        <h1>안녕하세요. 홈페이지 입니다.</h1>
+    <div  class="main-container" id="mainContainer">
+
+    </div>
+<script>
+    $.ajax({
+        url:'/api/member',    //controller 서버의 엔드포인트 경로
+        method:'GET',       // HTTP Method
+        dataType:'json',    //서버에서 반환할 데이터 타입
+        success:
+            function (data) {
+
+                $.each(data,
+                    function (index, value) {
+                    // 성공시 데이터 화면에 표시
+                    $('#mainContainer').append( '<p> '+ value.nickname   +'</p>'   );
+                    }
+                )
+
+            },
+        error :
+            function ()  {
+                $("#mainContainer").html('<p>데이터를 가져오지 못했습니다.</p>');
+            }
+    })
+
+    /*
+    $.ajax({
+        url:'/api/data',    //controller 서버의 엔드포인트 경로
+        method:'GET',       // HTTP Method
+        dataType:'json',    //서버에서 반환할 데이터 타입
+        success:
+                function (data) {
+                    // 성공시 데이터 화면에 표시
+                    $('#mainContainer').append( '<p> msg    : ' +  JSON.stringify(data.msg)   +'</p>'   );
+                    $('#mainContainer').append( '<p> status : ' +  JSON.stringify(data.status)   +'</p>'   );
+                },
+        error :
+                function ()  {
+                    $("#mainContainer").html('<p>데이터를 가져오지 못했습니다.</p>');
+                }
+    })
+     */
+</script>
+</body>
+</html>
