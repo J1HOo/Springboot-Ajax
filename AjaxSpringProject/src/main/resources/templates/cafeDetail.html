@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카페 상세</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>카페 상세 정보</h1>
+<div id="cafeList">
+  <!-- 카페 상세 정보 표시 영역 -->
+</div>
+
+<script>
+  $(document).ready(function() {
+    const pathSegments = window.location.pathname.split('/');
+    const cafeId = pathSegments[pathSegments.length - 1];
+
+    if (cafeId) {
+      $.ajax({
+        url: `/api/cafes/${cafeId}`,
+        method: 'get',
+        success: function (data) {
+          let cafeList = '';
+          if (data) {
+            cafeList = `
+                        <p><strong>이름:</strong> ${data.name}</p>
+                        <p><strong>주소:</strong> ${data.address}</p>
+                        <p><strong>전화번호:</strong> ${data.phoneNumber}</p>
+                        <p><strong>오픈 시간:</strong> ${data.openingTime}</p>
+                        <p><strong>닫는 시간:</strong> ${data.closingTime}</p>
+                        <p><strong>설명:</strong> ${data.description}</p>
+                    `;
+            $("#cafeList").html(cafeList);
+          } else {
+            $("#cafeList").html("<p>정보가 조회되지 않습니다.</p>");
+          }
+        },
+        error: function () {
+          alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.");
+        }
+      });
+    } else {
+      $("#cafeList").html("<p>유효한 카페 ID가 제공되지 않았습니다.</p>");
+    }
+  });
+
+</script>
+</body>
+</html>

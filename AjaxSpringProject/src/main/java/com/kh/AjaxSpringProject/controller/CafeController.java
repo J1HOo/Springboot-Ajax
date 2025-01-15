@@ -18,10 +18,11 @@ public class CafeController {
         return "cafe";
     }
 
-//    @GetMapping("/cafe/detail/{id}")
-//    public String detail(@PathVariable int id, Model model) {
-//        model.addAttribute("cafe",cafeService.getCafeId(id));
-//
-//        return "cafeInfo";
-//    }
+    @GetMapping("/cafe/detail/{id}")
+    public String detail(@PathVariable int id, Model model) {
+        model.addAttribute("cafe",cafeService.getCafeId(id));
+
+        return "cafeDetail";
+    }
+
 }

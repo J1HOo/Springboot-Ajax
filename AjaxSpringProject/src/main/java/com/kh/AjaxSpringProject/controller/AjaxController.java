@@ -74,4 +74,9 @@ public class AjaxController {
         log.info(cafes.toString());
         return cafes;
     }
+
+    @GetMapping("/api/cafes/{id}")
+    public Cafe getCafeById(@PathVariable("id") int id){
+        return cafeService.getCafeId(id);
+    }
 }

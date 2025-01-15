@@ -20,18 +20,12 @@
     method:'get',
     success:
             function (data) {
-              let cafeInfo;
+              let cafeInfo = "";
               if(data.length > 0) { //DB에서 컨트롤러로 전달받은 데이터가 1개 이상이라면
                 $.each(data,
                         function (index, cafe) {
                           cafeInfo += `
-                                                            <p><a href="/detail/${cafe.id}"> ID : </a>${cafe.id}</p>
-                                                            <p><strong> Name : </strong>${cafe.name}</p>
-                                                            <p><strong> Address : </strong>${cafe.address}</p>
-                                                            <p><strong> PhoneNumber : </strong>${cafe.phoneNumber}</p>
-                                                            <p><strong> OpeningTime : </strong>${cafe.openingTime}</p>
-                                                            <p><strong> closingTime : </strong>${cafe.closingTime}</p>
-                                                            <p><strong> description : </strong>${cafe.description}</p>
+                          <p> <span>[${cafe.id}]</span>${cafe.name}  <a href="/cafe/detail/${cafe.id}">[이동]</a></p>
                                                             `;
                         }
                 )

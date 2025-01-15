@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface CafeMapper {
         List<Cafe> getAllCafes();
+        Cafe getCafeId(int id);
     }
