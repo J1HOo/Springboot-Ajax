@@ -15,7 +15,6 @@
 </div>
 
 <script>
-  $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const cafeId = urlParams.get('id');
 
@@ -47,7 +46,6 @@
     } else {
       $("#cafeList").html("<p>유효한 카페 ID가 제공되지 않았습니다.</p>");
     }
-  });
 </script>
 </body>
 </html>
