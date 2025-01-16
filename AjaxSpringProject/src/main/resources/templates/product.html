@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>매장 상품</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    header {
+      background-color: #444;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+    .product:hover {
+      transform: scale(1.05);
+    }
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-details {
+      padding: 15px;
+    }
+    .product-title {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+      color: #333;
+      font-weight: bold;
+    }
+    .product-price {
+      color: #007BFF;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    .product-description {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.4;
+    }
+  </style>
+
+</head>
+<body>
+<header>
+  <h1>매장 상품</h1>
+</header>
+<div class="product-container" id="product-container">
+</div>
+</body>
+<script>
+  // .toFixed(0) : 소수점 이하를 버림
+  // .toFixed(2) : 소수점 이하 두자리까지 표시
+  // Number() : 문자열을 숫자로 변환
+  // .toLocaleString() : 숫자를 통화(화폐) 형식으로 변환
+  // toFixed가 문자열로 반환하기 때문에 Number()로 숫자로 변환 후 toLocaleString()으로 통화 형식으로 변환
+
+    function loadProduct() {
+    $.ajax({
+      url: 'https://fakestoreapi.com/products',
+      method: 'GET',
+      success: function(data) {
+        let productList = '';
+        $.each(data, function(index, product) {
+            productList = `
+            <div class="product">
+              <img src="${product.image}" alt="상품 이미지">
+              <div class="product-details">
+                <h2 class="product-title">${product.title}</h2>
+                <p class="product-price">${Number((product.price * 1470).toFixed(0)).toLocaleString()} 원</p>
+                <p class="product-description">${product.description.substring(0, 100)} ... 더 보기</p>
+              </div>
+            </div>
+          `;
+          $('#product-container').append(productList);
+        });
+      },
+        error: function() {
+            alert('상품을 불러오는데 실패했습니다.');
+        }
+    });
+  }
+
+  loadProduct();
+
+</script>
+</html>

@@ -55,6 +55,18 @@ public class IndexController {
 // ---------------------------- RANDOM LOGO -----------------------------------------------
 
     @GetMapping("/randomLogo")
-    public String randomLogo() { return "randomLogo"; }
-}
+    public String randomLogo() {
+        return "randomLogo";
+    }
 
+// ---------------------------- PRODUCT -----------------------------------------------
+
+    @GetMapping("/product")
+    public String product() { return "product"; }
+
+
+// ---------------------------- KAKAO LOGIN -----------------------------------------------
+
+    @GetMapping("/kakao/login")
+    public String kakaoLogin() { return "kakaoLogin"; }
+}
