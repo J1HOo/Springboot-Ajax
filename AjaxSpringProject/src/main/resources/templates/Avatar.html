@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicebear Avatar Generator</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body{
+            text-align: center;
+            margin: 20px;
+        }
+
+        .avatar-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .avatar-container img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+          #btnAvatar {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: yellowgreen;
+            color: white;
+            cursor: pointer;
+        }
+
+        #btnAvatar:hover {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+<h1>Avatar Generator</h1>
+<div class="avatar-container">
+    <img id="avatar" src="https://api.dicebear.com/9.x/lorelei/svg?seed=Sopia" alt="Avatar">
+</div>
+    <button id="btnAvatar">새로운 아바타 생성하기</button>
+</body>
+<script>
+    function loadAvatar(){
+        const seed = Math.random().toString(36).substring(2, 15);
+        // Math.random() : 0 ~ 1 사이의 난수 생성 0.0000000000000000 ~ 0.9999999999999999
+        // toString(36) : 36진수로 변환 0.123456789 -> 0.4a9s8d7f6g
+        // substring(2, 15) : 2번째부터 15번째까지의 문자열을 반환 0.4a9s8d7f6g -> 4a9s8d7f6g
+        const url = `https://api.dicebear.com/9.x/lorelei/svg?seed=${seed}`;
+
+        // 이미지를 직접 가져오기 위해 URL 설정
+        $('#avatar').attr('src', url);
+    }
+
+    $('#btnAvatar').click(function(){
+        loadAvatar();
+    });
+</script>
+</html>
