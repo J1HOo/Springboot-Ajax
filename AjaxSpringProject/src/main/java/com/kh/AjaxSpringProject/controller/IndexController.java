@@ -49,6 +49,12 @@ public class IndexController {
 
     @GetMapping("/avatar")
     public String avatar() {
-        return "Avatar";
+        return "avatar";
     }
+
+// ---------------------------- RANDOM LOGO -----------------------------------------------
+
+    @GetMapping("/randomLogo")
+    public String randomLogo() { return "randomLogo"; }
 }
+
