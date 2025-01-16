@@ -38,9 +38,8 @@ public class IndexController {
         return "cafe";
     }
 
-    @GetMapping("/cafe/detail/{id}")
-    public String cafeDetail(@PathVariable int id, Model model) {
-        model.addAttribute("cafe", cafeService.getCafeId(id));
+    @GetMapping("/cafe/detail")
+    public String cafeDetail(@RequestParam("id") int id) {
 
         return "cafeDetail";
     }

@@ -25,7 +25,7 @@
                 $.each(data,
                         function (index, cafe) {
                           cafeInfo += `
-                          <p> <span>[${cafe.id}]</span>${cafe.name}  <a href="/cafe/detail/${cafe.id}">[이동]</a></p>
+                          <p> <span>[${cafe.id}]</span>${cafe.name}  <a href="/cafe/detail?id=${cafe.id}">[이동]</a></p>
                                                             `;
                         }
                 )

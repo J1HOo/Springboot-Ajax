@@ -32,6 +32,7 @@ import java.util.Map;
 @Slf4j //Lombok 에서 지원하는 log = 기록
 @RestController // html 파일을 바라보는 것이 아니라 데이터를 전달 전송
 public class AjaxController {
+
     @Autowired
     private UserService userService;
 
@@ -65,6 +66,8 @@ public class AjaxController {
         return map;
     }
 
+ // ---------------------------- CAFE -----------------------------------------------
+
     @Autowired
     private CafeService cafeService;
 
@@ -75,7 +78,7 @@ public class AjaxController {
         return cafes;
     }
 
-    @GetMapping("/api/cafes/{id}")
+    @GetMapping("/api/cafe/{id}")
     public Cafe getCafeById(@PathVariable("id") int id){
         return cafeService.getCafeId(id);
     }
