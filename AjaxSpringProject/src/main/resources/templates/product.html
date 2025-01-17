@@ -108,7 +108,6 @@
 <script>
     const API_URL = "https://fakestoreapi.com/products";
 
-    // 카테고리에 따라서 카테고리에 해당하는 데이터를 다시 가져오기
     function loadProducts(category) {
         let url = API_URL;
         if (category) {
@@ -152,10 +151,9 @@
                     $("#categories").append(`<span class="category" data-category="${item}">${item}</span>`);
                 });
 
-                // 카테고리 클릭 이벤트 추가
                 $(".category").click(function () {
-                    $(".category").removeClass("active"); // 모든 카테고리의 활성화 클래스 제거
-                    $(this).addClass("active"); // 클릭한 카테고리에 활성화 클래스 추가
+                    $(".category").removeClass("active");
+                    $(this).addClass("active");
                     const selectedCategory = $(this).data("category");
                     loadProducts(selectedCategory);
                 });
