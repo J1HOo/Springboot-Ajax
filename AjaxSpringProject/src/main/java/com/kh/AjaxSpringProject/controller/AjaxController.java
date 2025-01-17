@@ -93,4 +93,7 @@ public class AjaxController {
 
     @GetMapping("/api/person")
     public List<Person> getAllPerson() {return personService.getAllPerson(); }
+
+    @GetMapping("/api/person/{id}")
+    public Person getPersonId(@PathVariable("id") int id) { return personService.getPersonId(id); }
 }

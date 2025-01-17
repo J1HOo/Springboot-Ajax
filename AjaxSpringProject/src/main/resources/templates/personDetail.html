@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>유저 목록</title>
+  <link href="/favicon.ico" rel="icon">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>유저 상세 정보</h1>
+<div id="personDetail"></div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const personId = urlParams.get('id');
+
+  if (personId) {
+    $.ajax({
+      url: `/api/person/${personId}`,
+      method: 'GET',
+      success: function (data) {
+        if (data) {
+         let person = `
+                        <p>이메일 : ${data.email}</p>
+                        <p>아이디 : ${data.username}</p>
+                        <p>비밀번호 : ${data.password}</p>
+                        <p>이름 : ${data.firstname} ${data.lastname}</p>
+                        <p>전화번호 : ${data.phone}</p>
+                        <p>주소 : ${data.city} ${data.street} ${data.streetNumber}</p>
+                        <p>우편번호 : ${data.zipcode}</p>
+                        <p>위도 : ${data.geolocationLat}</p>
+                        <p>경도 : ${data.geolocationLong}</p>
+                            `;
+          $("#personDetail").html(person);
+        } else {
+          $("#personDetail").html("<p>정보가 조회되지 않습니다.</p>");
+        }
+      },
+      error: function () {
+        alert("데이터를 가져오지 못했습니다.");
+      }
+    });
+  }
+</script>
+</body>
+</html>
