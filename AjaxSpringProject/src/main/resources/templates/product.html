@@ -1,110 +1,173 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>매장 상품</title>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-    }
-    header {
-      background-color: #444;
-      color: white;
-      padding: 1rem 0;
-      text-align: center;
-    }
-    .product-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .product {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s;
-    }
-    .product:hover {
-      transform: scale(1.05);
-    }
-    .product img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .product-details {
-      padding: 15px;
-    }
-    .product-title {
-      font-size: 1.2rem;
-      margin: 0 0 10px;
-      color: #333;
-      font-weight: bold;
-    }
-    .product-price {
-      color: #007BFF;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-    .product-description {
-      font-size: 0.9rem;
-      color: #666;
-      line-height: 1.4;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>매장 상품</title>
+    <link href="/favicon.ico" rel="icon" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
 
+        header {
+            background-color: #444;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        header .categories {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        header .categories .category {
+            background-color: #007BFF;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        header .categories .category:hover {
+            background-color: #0056b3;
+        }
+
+        /* 활성화된 카테고리 스타일 */
+        .category.active {
+            background-color: #0056b3;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin: 0 0 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .product-price {
+            color: #007BFF;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
 <header>
-  <h1>매장 상품</h1>
+    <h1>매장 상품</h1>
+    <div class="categories" id="categories"></div>
 </header>
 <div class="product-container" id="product-container">
 </div>
-</body>
 <script>
-  // .toFixed(0) : 소수점 이하를 버림
-  // .toFixed(2) : 소수점 이하 두자리까지 표시
-  // Number() : 문자열을 숫자로 변환
-  // .toLocaleString() : 숫자를 통화(화폐) 형식으로 변환
-  // toFixed가 문자열로 반환하기 때문에 Number()로 숫자로 변환 후 toLocaleString()으로 통화 형식으로 변환
+    const API_URL = "https://fakestoreapi.com/products";
 
-    function loadProduct() {
-    $.ajax({
-      url: 'https://fakestoreapi.com/products',
-      method: 'GET',
-      success: function(data) {
-        let productList = '';
-        $.each(data, function(index, product) {
-            productList = `
-            <div class="product">
-              <img src="${product.image}" alt="상품 이미지">
-              <div class="product-details">
-                <h2 class="product-title">${product.title}</h2>
-                <p class="product-price">${Number((product.price * 1470).toFixed(0)).toLocaleString()} 원</p>
-                <p class="product-description">${product.description.substring(0, 100)} ... 더 보기</p>
-              </div>
-            </div>
-          `;
-          $('#product-container').append(productList);
-        });
-      },
-        error: function() {
-            alert('상품을 불러오는데 실패했습니다.');
+    // 카테고리에 따라서 카테고리에 해당하는 데이터를 다시 가져오기
+    function loadProducts(category) {
+        let url = API_URL;
+        if (category) {
+            url += `/category/${category}`;
         }
-    });
-  }
 
-  loadProduct();
+        $.ajax({
+            url: url,
+            method: "get",
+            success: function (data) {
+                $("#product-container").empty();
+                $.each(data, function (index, item) {
+                    $("#product-container").append(
+                        `
+                        <div class="product">
+                           <img src="${item.image}" alt="${item.title}">
+                           <div class="product-details">
+                               <h2 class="product-title">${item.title}</h2>
+                               <p class="product-price">${Number((item.price * 1470).toFixed(0)).toLocaleString()}원</p>
+                               <p class="product-description">${item.description.substring(0, 100)}...더보기</p>
+                           </div>
+                       </div>
+                        `
+                    )
+                })
+            },
+            error: function () {
+                $("#product-container").html(`<p>상품 로드 오류가 발생했습니다.</p>`);
+            }
+        })
+    }
 
+    $.ajax({
+        url: "https://fakestoreapi.com/products/categories",
+        method: "GET",
+        success: function (cateData) {
+            if (cateData.length > 0) {
+                $("#categories").append(`<span class="category active" data-category="">all</span>`);
+
+                $.each(cateData, function (index, item) {
+                    $("#categories").append(`<span class="category" data-category="${item}">${item}</span>`);
+                });
+
+                // 카테고리 클릭 이벤트 추가
+                $(".category").click(function () {
+                    $(".category").removeClass("active"); // 모든 카테고리의 활성화 클래스 제거
+                    $(this).addClass("active"); // 클릭한 카테고리에 활성화 클래스 추가
+                    const selectedCategory = $(this).data("category");
+                    loadProducts(selectedCategory);
+                });
+                loadProducts();
+            } else {
+                $("#categories").html(`<p>카테고리가 존재하지 않습니다.</p>`);
+            }
+        },
+        error: function () {
+            $("#categories").html(`<p>카테고리 로드 중 문제가 발생했습니다.</p>`);
+        }
+    })
 </script>
+</body>
 </html>
