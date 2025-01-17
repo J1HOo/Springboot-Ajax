@@ -1,6 +1,7 @@
 package com.kh.AjaxSpringProject.controller;
 
 import com.kh.AjaxSpringProject.service.CafeService;
+import com.kh.AjaxSpringProject.service.PersonServiceImpl;
 import com.kh.AjaxSpringProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,4 +69,10 @@ public class IndexController {
 
     @GetMapping("/kakao/login")
     public String kakaoLogin() { return "kakaoLogin"; }
+
+
+// ---------------------------- PERSON -----------------------------------------------
+
+    @GetMapping("/persons")
+    public String persons() {return "persons"; }
 }

@@ -2,8 +2,10 @@ package com.kh.AjaxSpringProject.controller;
 
 
 import com.kh.AjaxSpringProject.dto.Cafe;
+import com.kh.AjaxSpringProject.dto.Person;
 import com.kh.AjaxSpringProject.dto.User;
 import com.kh.AjaxSpringProject.service.CafeService;
+import com.kh.AjaxSpringProject.service.PersonServiceImpl;
 import com.kh.AjaxSpringProject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class AjaxController {
     private UserService userService;
 
     @GetMapping("/api/users")
-    public List<User> getAllUSers(){
+    public List<User> getAllUsers(){
         List<User> users = userService.getAllUsers();
         log.info(users.toString());// 데이터의 정보가 어떻게 나오는지 확인하는 info
         return users;
@@ -82,4 +84,13 @@ public class AjaxController {
     public Cafe getCafeById(@PathVariable("id") int id){
         return cafeService.getCafeId(id);
     }
+
+
+    // ---------------------------- PERSON -----------------------------------------------
+
+    @Autowired
+    PersonServiceImpl personService;
+
+    @GetMapping("/api/person")
+    public List<Person> getAllPerson() {return personService.getAllPerson(); }
 }

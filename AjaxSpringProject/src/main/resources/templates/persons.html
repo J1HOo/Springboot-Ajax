@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유저들</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>유저들 정보</h1>
+<div class="person-container" id="persons"></div>
+</body>
+<script>
+    function getPersons() {
+        $.ajax({
+            url: "/api/person",
+            method: "GET",
+            success: function (data) {
+                $.each(data, function (index, person) {
+                    let personDiv = `
+                    <div class="person">
+                        <h2>${person.id}번</h2>
+                        <p>이메일 : ${person.email}</p>
+                        <p>아이디 : ${person.username}</p>
+                        <p>비밀번호 : ${person.password}</p>
+                        <p>이름 : ${person.firstname} ${person.lastname}</p>
+                        <p>전화번호 : ${person.phone}</p>
+                        <p>주소 : ${person.city} ${person.street} ${person.streetNumber}</p>
+                        <p>우편번호 : ${person.zipcode}</p>
+                        <p>위도 : ${person.geolocationLat}</p>
+                        <p>경도 : ${person.geolocationLong}</p>
+                    </div>
+`;
+                    $("#persons").append(personDiv);
+                });
+            }
+        });
+    }
+
+    getPersons();
+</script>
+</html>
