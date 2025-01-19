@@ -14,28 +14,29 @@ import java.util.List;
 
 @RestController
 public class ApiController {
+
     @Autowired
     private UserService userService;
     @Autowired
     private ProductService productService;
     @Autowired
     private CartService cartService;
-}
 
-// 사용자 목록 API
-@GetMapping("/api/users")
-public List<User> getUsers() {
+    // 사용자 목록 API
+    @GetMapping("/api/users")
+    public List<User> getUsers() {
 
-}
+    }
 
-// 상품 목록 API
-@GetMapping("/api/products")
-public List<Product> getProducts() {
+    // 상품 목록 API
+    @GetMapping("/api/products")
+    public List<Product> getProducts() {
 
-}
+    }
 
-// 특정 사용자의 장바구니 API
-@GetMapping("/api/carts")
-public Cart getCart() {
+    // 특정 사용자의 장바구니 API
+    @GetMapping("/api/carts")
+    public Cart getCart() {
 
+    }
 }
