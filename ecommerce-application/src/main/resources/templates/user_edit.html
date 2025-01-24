@@ -73,6 +73,8 @@
       method: "PUT",
       contentType: "application/json",
       data: JSON.stringify({
+        lastName : $("#lastname").text(),
+        firstName : $("#firstname").text(),
         email: $("#email").val(),
         phone: $("#phone").val(),
         city: $("#city").val(),
