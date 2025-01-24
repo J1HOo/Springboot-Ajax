@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
     public User getByUserId(int id) {
         return userMapper.getByUserId(id);
     }
+
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateUser(user);
+    }
 }

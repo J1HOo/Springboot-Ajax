@@ -17,4 +17,6 @@ public interface UserMapper {
     int existByEmail(String email);
 
     User getByUserId(int id);
+
+    void updateUser(User user);
 }

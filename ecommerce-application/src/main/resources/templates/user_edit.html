@@ -52,6 +52,7 @@
               $("#email").val(data.email);
               $("#phone").val(data.phone);
               $("#city").val(data.city);
+              $("#street").val(data.street);
               $("#streetNumber").val(data.streetNumber);
               $("#zipcode").val(data.zipcode);
 
@@ -67,6 +68,28 @@
   // PUTMapping 으로 수정 작성한 내용을 DB에 저장하기
   $("#editBtn").click(function (event) {
     event.preventDefault();
+    $.ajax({
+      url: `/api/user/update/${id}`,
+      method: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify({
+        email: $("#email").val(),
+        phone: $("#phone").val(),
+        city: $("#city").val(),
+        street: $("#street").val(),
+        streetNumber: $("#streetNumber").val(),
+        zipcode: $("#zipcode").val()
+      }),
+      success:
+              function (data) {
+                alert("수정이 완료되었습니다.");
+                window.location.href = "/user_list.html";
+              },
+      error:
+              function () {
+                alert("수정에 실패하였습니다.");
+              }
+    })
   });
 </script>
 </body>
