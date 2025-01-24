@@ -19,6 +19,6 @@ public class UDController {
     @PutMapping("/update/{id}")
     public void updateProduct(@PathVariable int id, @RequestBody Product product) {
         product.setId(id);
-        productService.updateProduct();
+        productService.updateProduct(product);
     }
 }

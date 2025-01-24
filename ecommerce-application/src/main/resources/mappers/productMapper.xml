@@ -8,6 +8,12 @@
         FROM products
     </select>
 
+    <select id="findById">
+        SELECT id, title, price, description, category, image, rating_rate, rating_count
+        FROM products
+        WHERE id = #{id}
+    </select>
+
     <insert id="addProduct">
         INSERT INTO Products (title, price, description, category, image, rating_rate, rating_count)
         VALUES (#{title}, #{price}, #{description}, #{category}, #{image}, #{ratingRate}, #{ratingCount})

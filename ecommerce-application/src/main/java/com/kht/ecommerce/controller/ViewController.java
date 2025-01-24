@@ -3,6 +3,7 @@ package com.kht.ecommerce.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
     public class ViewController {
@@ -17,6 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
         @GetMapping("/products")
         public String productsPage() {
             return "products";
+        }
+
+        // 상품 상세 페이지
+        @GetMapping("/product")
+        public String productPage(@RequestParam("id") int id) {
+        return "product_detail";
         }
 
         // 장바구니 페이지
@@ -42,8 +49,14 @@ import org.springframework.web.bind.annotation.PathVariable;
         return "insertProduct";
     }
 
-    @GetMapping("/products/update")
-    public String  updateProduct() {
+    @GetMapping("/inputEmail")
+    public String  getEmail() {
+        return "inputEmail";
+    }
+
+    // 수정하기  RequestParam 은 url 작성 X
+    @GetMapping("/update/product")
+    public String  updateProduct(@RequestParam("id") int id) {
         return "updateProduct";
     }
 }

@@ -18,8 +18,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.anyRequest())
+        http.csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
             .formLogin((form -> form.disable()));
-        return http.build();
+        return http.build(); //build = 빌딩  위에서 작성한 http 속성으로 뭉쳐놓은다음 사용
     }
 }

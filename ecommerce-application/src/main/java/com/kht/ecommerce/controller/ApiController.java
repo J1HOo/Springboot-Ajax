@@ -80,4 +80,10 @@ public class ApiController {
         log.info("add product: {}", product);
         productService.addProduct();
     }
+
+    @GetMapping("/api/products/{id}")
+    public Product getProduct(@PathVariable("id") int id) {
+        return productService.findById(id);
+    }
+
 }
