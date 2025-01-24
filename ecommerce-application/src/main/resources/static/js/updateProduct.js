@@ -14,7 +14,7 @@
     $("#category").val(data.category);
     $("#image").val(data.image);
     $("#ratingRate").val(data.ratingRate);
-    $("#ratingCount").val(data.ratingRate);
+    $("#ratingCount").val(data.ratingCount);
 }
 },
     error:
@@ -26,5 +26,26 @@
     $("#product-form").on("submit", function (event) {
     event.preventDefault();
     $.ajax({
+        url: `/api/update/${id}`,
+        method: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify({
+            title: $("#title").val(),
+            price: $("#price").val(),
+            description: $("#description").val(),
+            category: $("#category").val(),
+            image: $("#image").val(),
+            ratingRate: $("#ratingRate").val(), // 만약에 숫자값으로 들어가지 않을경우 input 형변환 parseInt
+            ratingCount: $("#ratingCount").val()
+        }),
+        success:
+            function (data) {
+                alert("상품 수정 성공~!");
+                window.location.href = "/";
+            },
+        error:
+            function () {
+                alert("데이터를 수정할 수 없습니다. 다시 시도해주세요.");
+            }
 })
 })
