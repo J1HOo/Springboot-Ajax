@@ -15,4 +15,6 @@ public interface UserMapper {
 
     // 이메일 존재 유무 확인
     int existByEmail(String email);
+
+    User getByUserId(int id);
 }

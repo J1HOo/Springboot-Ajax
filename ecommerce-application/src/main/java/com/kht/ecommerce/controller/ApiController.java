@@ -86,4 +86,8 @@ public class ApiController {
         return productService.findById(id);
     }
 
+    @GetMapping("/api/user/{id}")
+    public User getUser(@PathVariable int id) {
+        return userService.getByUserId(id);
+    }
 }

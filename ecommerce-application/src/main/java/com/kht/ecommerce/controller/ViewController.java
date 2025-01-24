@@ -59,4 +59,9 @@ import org.springframework.web.bind.annotation.RequestParam;
     public String  updateProduct(@RequestParam("id") int id) {
         return "updateProduct";
     }
+
+    @GetMapping("/user")
+    public String userPage(@RequestParam("id") int id) {
+        return "user_detail";
+    }
 }

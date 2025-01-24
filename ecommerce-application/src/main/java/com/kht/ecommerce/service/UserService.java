@@ -15,4 +15,6 @@ public interface UserService {
     // 이메일 존재 유무 확인
     // Map<String, Object> existByEmail(String email);
     boolean existByEmail(String email);
+
+    User getByUserId(int id);
 }
