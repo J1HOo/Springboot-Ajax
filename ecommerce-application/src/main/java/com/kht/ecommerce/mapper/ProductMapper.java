@@ -9,4 +9,5 @@ import java.util.List;
     public interface ProductMapper {
         List<Product> getAllProducts();
         void addProduct();
+        void updateProduct();
 }

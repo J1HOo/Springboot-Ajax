@@ -21,4 +21,9 @@ public class ProductServiceImpl implements ProductService {
     public void addProduct() {
         productMapper.addProduct();
     }
+
+    @Override
+    public void updateProduct() {
+        productMapper.updateProduct();
+    }
 }

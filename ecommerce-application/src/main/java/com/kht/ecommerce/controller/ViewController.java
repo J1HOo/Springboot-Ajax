@@ -41,4 +41,9 @@ import org.springframework.web.bind.annotation.PathVariable;
     public String  getProduct() {
         return "insertProduct";
     }
+
+    @GetMapping("/products/update")
+    public String  updateProduct() {
+        return "updateProduct";
+    }
 }

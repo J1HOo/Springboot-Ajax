@@ -12,4 +12,10 @@
         INSERT INTO Products (title, price, description, category, image, rating_rate, rating_count)
         VALUES (#{title}, #{price}, #{description}, #{category}, #{image}, #{ratingRate}, #{ratingCount})
     </insert>
+
+    <update id="updateProduct">
+        UPDATE Products
+        SET title = #{title}, price = #{price}, description = #{description}, category = #{category}, image = #{image}, rating_rate = #{ratingRate}, rating_count = #{ratingCount}
+        WHERE id = #{id}
+    </update>
 </mapper>
