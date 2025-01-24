@@ -92,4 +92,15 @@ public class ApiController {
         log.info(user.toString());
         return user;
     }
+
+    // 사용자 수정하기 api
+    //  서울시 강남구 테헤란로
+    @PutMapping("/api/user/edit/{id}") // PathVariable = 특정사용자 데이터를 주고받는 장소  @Request = 데이터를 통째로 전달받거나, 일부분만 전달받아서 사용하거나 전달
+    public int getUserEdit(@PathVariable("id") int id,
+                           @RequestBody User user) {
+        System.out.println(" 유저 : " + user.toString());
+        user.setId(id); // 수정하기 주소에 존재하는 유저 아이디를 가져와서 User DTO에 넣어주고, mapper.xml where id 에서 넣어준 id를 사용할 수 있음
+        System.out.println(" 유저 : " + user.toString());
+        return userService.editUser(user);
+    }
 }

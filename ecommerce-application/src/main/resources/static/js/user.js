@@ -1,4 +1,4 @@
-$(document).ready(function () {
+ $(document).ready(function () {
     $.ajax({
         url: '/api/users',
         method: 'GET',
@@ -10,6 +10,7 @@ $(document).ready(function () {
                         '<div class="card">' +
                         '<h3>' + value.lastname + value.firstname + '</h3>' +
                         '<p>' + value.phone + '</p>' +
+                        '<a href="/user?id='+ value.id      + ' "> 이동하기</a><br>' +
                         '<a href="/cart?userId=' + value.userId + '"> 장바구니 확인하기</a>'  +
                         '</div>')
                 })

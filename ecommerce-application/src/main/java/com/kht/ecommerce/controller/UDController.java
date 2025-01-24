@@ -27,10 +27,4 @@ public class UDController {
         product.setId(id);
         productService.updateProduct(product);
     }
-
-    @PutMapping("/user/update/{id}")
-    public void updateUser(@PathVariable int id, @RequestBody User user) {
-        user.setId(id);
-        userService.updateUser(user);
-    }
 }

@@ -11,14 +11,14 @@
 <h1>유저 수정하기</h1>
 <form>
   <label>유저 이름 :</label>
-  <p id="lastname"></p>
-  <p id="firstname"></p>
+  <span id="username"></span>
+  <!-- <p id="lastname"></p><p id="firstname"></p> -->
 
   <label for="email">이메일 : </label>
   <input id="email" type="email">
 
   <label for="phone">핸드폰 번호 : </label>
-  <input id="phone" type="number">
+  <input id="phone" pattern="[0-9\-]" type="text">
 
   <label for="city">사는 곳 : </label>
   <input id="city" type="text">
@@ -45,8 +45,11 @@
     success:
             function (data) {
               /* p 태그는 text 형식으로 값 넣어줘야함*/
-              $("#lastname").text(data.lastname);
-              $("#firstname").text(data.firstname);
+              $("#username").text(data.lastname + " " + data.firstname);
+              /*
+               $("#lastname").text(data.lastname);
+               $("#firstname").text(data.firstname);
+               */
 
               /* input 태그는 val 형식으로 값 넣어줘야함*/
               $("#email").val(data.email);
@@ -65,33 +68,34 @@
   })
 
 
-  // PUTMapping 으로 수정 작성한 내용을 DB에 저장하기
+  // PUTMapping 으로 수정한 내용을 디비에 저장하기 버튼
   $("#editBtn").click(function (event) {
-    event.preventDefault();
-    $.ajax({
-      url: `/api/user/update/${id}`,
-      method: "PUT",
-      contentType: "application/json",
+    //  event.preventDefault();
+    // put 메서드로 회원정보 수정
+    $.ajax({ //서울시강남구
+      url: `/api/user/edit/${id}`,
+      method: 'PUT', // POST 과 PUT content-type data 필수!!
+      contentType: "application/json", // 글자형식만 전송
       data: JSON.stringify({
-        lastName : $("#lastname").text(),
-        firstName : $("#firstname").text(),
-        email: $("#email").val(),
-        phone: $("#phone").val(),
-        city: $("#city").val(),
-        street: $("#street").val(),
-        streetNumber: $("#streetNumber").val(),
-        zipcode: $("#zipcode").val()
+        email : $("#email").val(),                // input에 있는 값을 가져와서 email 이라는 이름으로 사용자가 작성한 값을 전달
+        phone : $("#phone").val(),               // input에 있는 값을 가져와서 phone 이라는 이름으로 사용자가 작성한 값을 전달
+        city : $("#city").val(),                 // input에 있는 값을 가져와서 city 라는 이름으로 사용자가 작성한 값을 전달
+        street : $("#street").val(),             // input에 있는 값을 가져와서 street 라는 이름으로 사용자가 작성한 값을 전달
+        streetNumber : $("#streetNumber").val(), // input에 있는 값을 가져와서 streetNumber 라는 이름으로 사용자가 작성한 값을 전달
+        zipcode : $("#zipcode").val()            // input에 있는 값을 가져와서 zipcode 라는 이름으로 사용자가 작성한 값을 전달
+
       }),
       success:
-              function (data) {
-                alert("수정이 완료되었습니다.");
-                window.location.href = "/";
+              function () { // contentType 으로 data 전송 성공했음을 나타냄
+                alert("유저 정보를 수정했습니다.");
+                window.location.href = `/user?id=${id}`; // 유저 상세보기 주소로 이동
               },
       error:
-              function () {
-                alert("수정에 실패하였습니다.");
+              function () { // 컨트롤러에서 데이터를 서비스로 전달하는데 문제가 생겼을 때 발생하는 alert
+                alert("데이터로딩 실패");
               }
     })
-  });
+  })
 </script>
 </body>
+</html>

@@ -25,23 +25,14 @@
         WHERE id= #{id}
     </select>
 
-    <update id="updateUser">
-        UPDATE
-            users
-        SET
-            email = #{email},
-            username = #{username},
-            password = #{password},
-            firstname = #{firstname},
-            lastname = #{lastname},
+    <update id="editUser">
+        update users
+        set email = #{email},
             phone = #{phone},
             city = #{city},
             street = #{street},
             street_number = #{streetNumber},
             zipcode = #{zipcode}
-        WHERE
-            id = #{id}
+        where id = #{id}
     </update>
-
-
 </mapper>

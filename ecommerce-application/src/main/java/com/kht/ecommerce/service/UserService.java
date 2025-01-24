@@ -18,5 +18,5 @@ public interface UserService {
 
     User getByUserId(int id);
 
-    void updateUser(User user);
+    int editUser(User user);
 }
