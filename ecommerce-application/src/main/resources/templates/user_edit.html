@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>유저 수정하기</title>
+  <link href="/favicon.ico" rel="icon">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>유저 수정하기</h1>
+<form>
+  <label>유저 이름 :</label>
+  <p id="lastname"></p>
+  <p id="firstname"></p>
+
+  <label for="email">이메일 : </label>
+  <input id="email" type="email">
+
+  <label for="phone">핸드폰 번호 : </label>
+  <input id="phone" type="number">
+
+  <label for="city">사는 곳 : </label>
+  <input id="city" type="text">
+
+  <label for="street">도로명 주소 : </label>
+  <input id="street" type="text">
+
+  <label for="streetNumber">도로 번호 : </label>
+  <input id="streetNumber" type="number">
+
+  <label for="zipcode">우편번호 : </label>
+  <input id="zipcode" type="text">
+
+  <button id="editBtn" type="button">수정하기</button>
+</form>
+<script>
+  // 1. id 값으로 유저 상세정보 불러오기 ajax
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  console.log(id);
+  $.ajax({
+    url: `/api/user/${id}`,
+    method: "GET",
+    success:
+            function (data) {
+              /* p 태그는 text 형식으로 값 넣어줘야함*/
+              $("#lastname").text(data.lastname);
+              $("#firstname").text(data.firstname);
+
+              /* input 태그는 val 형식으로 값 넣어줘야함*/
+              $("#email").val(data.email);
+              $("#phone").val(data.phone);
+              $("#city").val(data.city);
+              $("#streetNumber").val(data.streetNumber);
+              $("#zipcode").val(data.zipcode);
+
+            },
+    error:
+            function (err) {
+              alert("데이터를 가져올 수 없습니다.");
+            }
+
+  })
+
+
+  // PUTMapping 으로 수정 작성한 내용을 DB에 저장하기
+  $("#editBtn").click(function (event) {
+    event.preventDefault();
+  });
+</script>
+</body>
