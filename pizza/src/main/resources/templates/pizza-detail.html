@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>피자 상세보기</title>
+  <link rel="stylesheet" href="/css/pizza-style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h1>피자 상세보기</h1>
+  <div id="pizza-detail">
+  </div>
+  <a href="/pizzas">목록으로</a>
+</div>
+</body>
+
+<script>
+  $(document).ready(function(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    $.ajax({
+      url: "/api/pizzas/" + id,
+      method: "GET",
+      success: function(pizza) {
+        $('#pizza-detail').html(`
+            <h2>${pizza.name}</h2>
+            <p>가격: ${pizza.price}</p>
+            <p>설명: ${pizza.description}</p>
+            <img src="${pizza.imagePath}" alt="이미지" style="width: 200px;">
+          `);
+      }
+    });
+  });
+</script>
+</html>

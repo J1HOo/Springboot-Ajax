@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>피자 수정</title>
+  <link rel="stylesheet" href="/css/pizza-style.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h1>피자 수정</h1>
+  <form id="edit-pizza-form" enctype="multipart/form-data">
+    <input type="hidden" id="pizzaId" name="id">
+    <label for="name">이름:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="price">가격:</label>
+    <input type="number" id="price" name="price" required>
+    <br>
+    <label for="description">설명:</label>
+    <textarea id="description" name="description"></textarea>
+    <br>
+    <label for="image">이미지:</label>
+    <input type="file" id="image" name="image" accept="image/*">
+    <br>
+    <button type="submit">수정</button>
+  </form>
+</div>
+</body>
+
+<script>
+  $(document).ready(function(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    $('#pizzaId').val(id);
+    $.ajax({
+      url: "/api/pizzas/" + id,
+      method: "GET",
+      success: function(pizza) {
+        $('#name').val(pizza.name);
+        $('#price').val(pizza.price);
+        $('#description').val(pizza.description);
+      }
+    });
+
+    $('#edit-pizza-form').submit(function(event){
+      event.preventDefault();
+      const formData = new FormData(this);
+      $.ajax({
+        url: "/api/pizzas/" + id,
+        type: "PUT",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data){
+          alert("피자가 수정되었습니다.");
+          window.location.href = "/pizzas";
+        }
+      });
+    });
+  });
+</script>
+</html>
