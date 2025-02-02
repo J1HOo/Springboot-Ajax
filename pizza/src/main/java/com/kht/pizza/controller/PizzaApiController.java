@@ -24,7 +24,7 @@ public class PizzaApiController {
     }
 
     @GetMapping("/{id}")
-    public Pizza getPizzaById(@PathVariable int id) {
+    public Pizza getPizzaById(@PathVariable("id") int id) {
         return pizzaService.getPizzaById(id);
     }
 
